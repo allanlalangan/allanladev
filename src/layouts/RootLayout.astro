@@ -1,0 +1,19 @@
+---
+const { title } = Astro.props;
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link
+			rel="icon"
+			href="data:image/svg+xml,<svg style='background:black;borderRadius:100px' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' x='23' font-size='105' font-style='italic' fill='white'>ᾰ</text></svg>"
+		/>
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body class="bg-gray-900 text-gray-50">
+		<slot />
+	</body>
+</html>
