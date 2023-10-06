@@ -15,27 +15,38 @@ const { title } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body
-		class="lg:grid-rows-24 h-screen bg-stone-300 text-gray-950 transition-colors dark:bg-gray-900 dark:text-gray-50 lg:grid lg:grid-cols-12"
+		class="bg-stone-300 text-gray-950 transition-colors dark:bg-gray-900 dark:text-gray-50 lg:grid lg:h-screen lg:grid-cols-12 lg:grid-rows-24"
 	>
 		<header
-			class="col-span-6 col-start-7 row-span-1 row-start-1 flex items-center justify-end p-2 lg:col-span-8 lg:col-start-5"
+			class="col-start-7 row-span-1 row-start-1 flex items-center justify-end bg-stone-300 px-2 pt-2 dark:bg-gray-900 lg:col-span-8 lg:col-start-5 lg:pb-2"
 		>
 			<ThemeToggle />
 		</header>
 		<aside
-			class="col-span-6 col-start-1 row-span-1 flex items-center justify-between border-stone-400 px-2 dark:border-gray-700 lg:col-span-4 lg:row-span-full lg:flex-col lg:justify-center lg:border-r lg:p-2"
+			class="relative row-span-1 flex items-center justify-between border-stone-400 bg-stone-300 p-2 px-2 dark:border-gray-700 dark:bg-gray-900 lg:col-span-4 lg:col-start-1 lg:row-span-full lg:flex-col lg:justify-center lg:border-r lg:p-2"
 		>
 			<a
 				href="/"
-				class="font-['Times_New_Roman'] text-4xl font-bold italic lg:text-8xl"
+				class="z-10 flex-1 bg-stone-300 font-['Times_New_Roman'] text-4xl font-bold italic dark:bg-gray-900 lg:flex-initial lg:text-8xl"
 				>ᾰ</a
 			>
-			<ul class="flex gap-2 lg:flex-col lg:gap-1">
-				<li class="text-center"><a href="#">about</a></li>
-				<li class="text-center"><a href="#">projects</a></li>
-				<li class="text-center"><a href="#">skills</a></li>
+			<ul
+				class="z-10 flex h-full flex-1 items-center justify-center gap-4 bg-stone-300 p-2 dark:bg-gray-900 lg:h-auto lg:flex-initial lg:flex-col lg:gap-2"
+			>
+				<li class="text-center underline-offset-2 hover:underline">
+					<a href="#">about</a>
+				</li>
+				<li class="text-center underline-offset-2 hover:underline">
+					<a href="#">projects</a>
+				</li>
+				<li class="text-center underline-offset-2 hover:underline">
+					<a href="#">skills</a>
+				</li>
 			</ul>
-			<ul class="flex items-center justify-center gap-2 lg:mt-4">
+			<ul
+				id="socialLinks"
+				class="absolute -bottom-12 left-0 flex h-12 w-full flex-1 items-center justify-center gap-4 opacity-100 transition-all lg:static lg:z-0 lg:mt-4 lg:h-auto lg:flex-initial lg:-translate-y-0 lg:border-none"
+			>
 				<li>
 					<a href="https://github.com/allanlalangan" target="_blank">
 						<svg
@@ -97,11 +108,33 @@ const { title } = Astro.props;
 					</a>
 				</li>
 			</ul>
+			<div
+				class="flex flex-1 items-center justify-end bg-stone-300 dark:bg-gray-900 lg:flex-initial"
+			>
+				<button
+					class="z-10 bg-stone-300 transition dark:bg-gray-900 lg:hidden"
+					id="menuToggle">socials</button
+				>
+			</div>
 		</aside>
 		<main
-			class="col-span-12 row-span-full row-start-2 flex overflow-y-scroll p-2 lg:col-span-8 lg:col-start-5"
+			id="mainContent"
+			class="col-span-12 row-span-full row-start-2 mt-12 flex border-t border-stone-400 p-2 transition-all dark:border-gray-700 lg:col-span-8 lg:col-start-5 lg:mt-0 lg:overflow-y-scroll lg:border-t-0"
 		>
 			<slot />
 		</main>
 	</body>
 </html>
+
+<script is:inline>
+const menuToggle = document.getElementById('menuToggle');
+const socialLinks = document.getElementById('socialLinks');
+const main = document.getElementById('mainContent');
+const handleToggleMenu = () => {
+	console.log(menuToggle);
+	socialLinks.classList.toggle('-translate-y-full');
+	main.classList.toggle('mt-12');
+};
+
+menuToggle.addEventListener('click', handleToggleMenu);
+</script>
